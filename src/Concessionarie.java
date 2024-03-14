@@ -56,6 +56,51 @@ public class Concessionarie {
             System.out.println("non sono ancora presenti delle automobili nella filiale selezionata");
         }
     }
+    public void cercaAutoPerMarca(int filiale, String AutoDaCercare){
+        int distDiLevenshtein = 1000;
+        int tempInt = 0;
+        int counter = 0;
+        for (int i = 0; i<concessionarie.get(filiale).getAutos().size();i++) {
+            String tempString = concessionarie.get(filiale).getAutos().get(i).getMarca();
+            tempInt = levenshtein(AutoDaCercare,tempString,AutoDaCercare.length()-1,tempString.length()-1);
+            if(tempInt<=distDiLevenshtein){
+                counter = i;
+                distDiLevenshtein = tempInt;
+            }
+        }
+        String marcaTrovata = concessionarie.get(filiale).getAutos().get(counter).getMarca();
+        System.out.println("\nNessuna marca trovata con: "+AutoDaCercare);
+        System.out.println("la marca che si avvicina è :" + marcaTrovata);
+        concessionarie.get(filiale).cercaAuto(marcaTrovata);
+        System.out.println();
+    }
+    public int levenshtein(String AutoDaCercare,String s2, int m, int n){
+        StringBuilder s1 = new StringBuilder(AutoDaCercare);
+        int distDiLevenshtein = 0;
+        for (m = m ; m >= 0; m--){
+            if(s1.charAt(m) != s2.charAt(n) && m < n && m < s1.length()){
+                s1.insert(m+1, s2.charAt(n));
+                m++;
+                n--;
+                distDiLevenshtein++;
+            }else if(s1.charAt(m) != s2.charAt(n) && m < n){
+                s1.append(s2.charAt(n));
+                m++;
+                n--;
+                distDiLevenshtein++;
+            }else if (s1.charAt(m) != s2.charAt(n) && m > n){
+                s1.deleteCharAt(m);
+                distDiLevenshtein++;
+            }else if(s1.charAt(m) != s2.charAt(n) && m == n){
+                s1.setCharAt(m,s2.charAt(n));
+                n--;
+                distDiLevenshtein++;
+            }else{
+                n--;
+            }
+        }
+        return distDiLevenshtein;
+    }
 
 
 }

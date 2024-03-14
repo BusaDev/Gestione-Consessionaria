@@ -33,10 +33,6 @@ public class Filiale {
     public void aggiungiAuto(Auto nuovaAuto){
         autos.add(nuovaAuto);
     }
-    public void rimuoviAuto(Auto autoRimossa){
-        autos.remove(autoRimossa);
-        System.out.println("auto rimossa");
-    }
     public void cercaAuto(String marcaDaCercare){
         for (Auto auto:autos){
             if(auto.getMarca().equalsIgnoreCase(marcaDaCercare)){

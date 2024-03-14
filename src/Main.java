@@ -18,33 +18,24 @@ public class Main {
         do {
             aziendaPrincipale.filialeCorrente(filiale);
             System.out.println("Premi 1 per stampare le info della filiale");
-            System.out.println("Premi 2 per aggiungere auto nella filiale");
-            System.out.println("Premi 3 per rimuovere auto dalla filiale");
-            System.out.println("Premi 4 per stampare auto presenti in filiale");
-            System.out.println("Premi 5 per cambiare filiale");
-            System.out.println("Premi 6 per creare nuova filiale");
-            System.out.println("Premi 7 per uscire dal programma");
+            System.out.println("Premi 2 per entrare nel menu auto della filiale");
+            System.out.println("Premi 3 per cambiare filiale");
+            System.out.println("Premi 4 per creare nuova filiale");
+            System.out.println("Premi 5 per uscire dal programma");
             scelta = scanner.next();
             switch(scelta){
                 case "1":
                     aziendaPrincipale.infoFiliale(filiale);
                     break;
                 case "2":
-                    aggiungiAuto(aziendaPrincipale,filiale);
-                    break;
+                    menuAuto(aziendaPrincipale,filiale);
+                    break  ;
                 case "3":
-                    aziendaPrincipale.stampaAutoFiliale(filiale);
-                    rimuoviAuto(aziendaPrincipale,filiale);
-                    break;
-                case "4":
-                    aziendaPrincipale.stampaAutoFiliale(filiale);
-                    break;
-                case "5":
                     System.out.println("Lista Filiali: ");
                     aziendaPrincipale.stampaFiliale();
                     filiale = cambiaFiliale(aziendaPrincipale, filiale);
                     break;
-                case "6":
+                case "4":
                     System.out.println("Crea una nuova Filiale");
                     creaFiliale(aziendaPrincipale);
                     break;
@@ -52,8 +43,39 @@ public class Main {
                     System.out.println("input errato riprova\n");
                     break;
             }
-        }while(!scelta.equalsIgnoreCase("7"));
+        }while(!scelta.equalsIgnoreCase("5"));
 
+    }
+    public static void menuAuto(Concessionarie aziendaPrincipale, int filiale){
+        String scelta;
+        do{
+        System.out.println("Premi 1 per cercare auto per marca nelle filiali");
+        System.out.println("Premi 2 per aggiungere un auto nella filiale");
+        System.out.println("Premi 3 per rimuovere auto dalla filiale");
+        System.out.println("Premi 4 per stampare auto presenti in filiale");
+        System.out.println("Premi 5 per tornare indietro");
+        scelta = scanner.next();
+            switch(scelta) {
+                case "1":
+                    System.out.print("Inserisci marca automobilistica da cercare: ");
+                    String autoDaCercare = scanner.next();
+                    aziendaPrincipale.cercaAutoPerMarca(filiale, autoDaCercare);
+                    break;
+                case "2":
+                    aggiungiAuto(aziendaPrincipale, filiale);
+                    break;
+                case "3":
+                    aziendaPrincipale.stampaAutoFiliale(filiale);
+                    rimuoviAuto(aziendaPrincipale, filiale);
+                    break;
+                case "4":
+                    aziendaPrincipale.stampaAutoFiliale(filiale);
+                    break;
+                default:
+                    System.out.println("input errato");
+                    break;
+            }
+        }while(!scelta.equalsIgnoreCase("5"));
     }
     public static void creaFiliale(Concessionarie aziendaPrincipale){
         int done = 0;
